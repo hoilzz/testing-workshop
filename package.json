@@ -55,7 +55,6 @@
     "eslint-plugin-flowtype": "^2.50.0",
     "faker": "^4.1.0",
     "fs-extra": "^7.0.0",
-    "husky": "^0.14.3",
     "inquirer": "^6.0.0",
     "is-ci": "^1.1.0",
     "jest": "^23.4.1",
@@ -70,24 +69,6 @@
     "replace-in-file": "^3.4.0",
     "rimraf": "^2.6.2",
     "start-server-and-test": "^1.5.0"
-  },
-  "lint-staged": {
-    "linters": {
-      "+(README|INSTRUCTIONS).md": [
-        "doctoc",
-        "prettier --write",
-        "git add"
-      ],
-      "**/!(README).+(md|css|json)": [
-        "prettier --write",
-        "git add"
-      ],
-      "**/+(src|test|scripts)/**/*.js": [
-        "prettier --write",
-        "eslint --cache --cache-location node_modules/.cache/eslint",
-        "git add"
-      ]
-    }
   },
   "eslintConfig": {
     "extends": [

@@ -14,18 +14,20 @@ test('calls onSubmit with the username and password when submitted', () => {
 
   const usernameNode = getByLabelText(/username/i)
   const passwordNode = getByLabelText(/password/i)
-
+  const submitButtonNode = getByText(/submit/i);
   // Act
   usernameNode.value = fakeUser.username
   passwordNode.value = fakeUser.password
-  getByText(/submit/i).click()
+  submitButtonNode.click()
 
   // Assert
   expect(handleSubmit).toHaveBeenCalledTimes(1)
-  expect(handleSubmit).toHaveBeenCalledWith(fakeUser)
+  expect(handleSubmit).toHaveBeenCalledWith(fakeUser)4
 })
 
 test('snapshot', () => {
+  // 
+  expect(container.firstChild).toMatchSnapshot()
   // render the login, this will give you back an object with a `container` property
   // expect the `container` property to match a snapshot
 })

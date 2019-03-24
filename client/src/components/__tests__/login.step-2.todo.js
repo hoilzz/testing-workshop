@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // 🐨 you'll need these:
 // import {generate} from 'til-client-test-utils'
-// import {render, fireEvent} from 'react-testing-library'
+import {render, fireEvent} from 'react-testing-library'
 
 // note that til-client-test-utils is found in `client/test/til-client-test-utils`
 // note also that the client/test/setup-test-framework.js file takes care of
@@ -21,27 +21,32 @@ test('calls onSubmit with the username and password when submitted', () => {
   // so you don't need a div anymore!
   // 💰 const {getByLabelText, getByText} = render(<Login onSubmit={handleSubmit} />)
   const div = document.createElement('div')
-  ReactDOM.render(<Login onSubmit={handleSubmit} />, div)
+  const {getByLabelText, getByText} = render(
+    <Login onSubmit={handleSubmit} />,
+    div,
+  )
 
-  const inputs = div.querySelectorAll('input')
-  const usernameNode = inputs[0]
-  const passwordNode = inputs[1]
-  const formNode = div.querySelector('form')
-  const submitButtonNode = div.querySelector('button')
+  // const inputs = div.querySelectorAll('input')
+  const usernameNode = getByLabelText('Username')
+  const passwordNode = getByLabelText('Password')
+
+  // const formNode = div.querySelector('form')
+  const submitButtonNode = getByText('Submit')
 
   usernameNode.value = fakeUser.username
   passwordNode.value = fakeUser.password
 
   // Act
   // 🐨 Use fireEvent.click(submitButtonNode) instead of these two lines
-  const event = new window.Event('submit')
-  formNode.dispatchEvent(event)
+  // const event = new window.Event('submit')
+  // formNode.dispatchEvent(event)
+  fireEvent.click(submitButtonNode)
 
   // Assert
   expect(handleSubmit).toHaveBeenCalledTimes(1)
   expect(handleSubmit).toHaveBeenCalledWith(fakeUser)
   // 🐨 this assertion is no longer necessary:
-  expect(submitButtonNode.type).toBe('submit')
+  // expect(submitButtonNode.type).toBe('submit')
 })
 
 //////// Elaboration & Feedback /////////

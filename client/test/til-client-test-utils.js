@@ -19,3 +19,6 @@ function renderWithRouter(ui, {route = '/', ...renderOptions} = {}) {
 
 export {Simulate, wait, render, cleanup, fireEvent} from 'react-testing-library'
 export {renderWithRouter, generate}
+
+// providerdㅘ 함꼐 걍 렌더링 하기.
+//  

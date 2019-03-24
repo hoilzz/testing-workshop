@@ -12,6 +12,8 @@ import {wait, generate} from 'til-client-test-utils'
 import User from '../user'
 import * as apiMock from '../../utils/api'
 
+
+// auth api는 me, logout, login, register를 가진다.
 jest.mock('../../utils/api', () => {
   const mock = {}
   const authResponse = {user: null}
