@@ -1,22 +1,44 @@
 // add a beforeEach for cleaning up state and intitializing the API
 
+import axiosMock from 'axios';
+import React from 'react'
+import {Router} from 'react-router-dom'
+import {fireEvent, render, wait} from 'react-testing-library'
+import {createMemoryHistory} from 'history'
+import 'jest-dom/extend-expect'
+import App from '../app';
+import {init as initAPI} from '../utils/api'
+
 test('login as an existing user', async () => {
+  axiosMock.__mock.reset();
+  initAPI();
+  const history = createMemoryHistory({initialEntries: ['/']})
   // 🐨 render the app with the router provider and custom history
-  // 💰 const utils = renderWithRouter(<App />)
-  //
+  //  const utils = renderWithRouter(<App />)
+  const utils = render(<Router history={history}><App /></Router>)
   // 🐨 wait for the app to finish loading the mocked requests
   // 💰 await utils.finishLoading()
-  //
+  await wait(() => expect(utils.queryByText('Loading')).toBeNull())
+  // await wait(() => expect(utils))
   // 🐨 navigate to login by clicking login-link
   // 💰 the link has text that matches /login/i
   // 💰 when you fireEvent.click on the login link, react-router will ignore
   // the click unless it's a "left click" which is based on the `button`
   // property. So as a second argument to `fireEvent.click`, pass `{button: 0}`
-  //
+  const loginLink = utils.getByText(/login/i)
+
+  fireEvent.click(loginLink, {button: 0})
+  expect(window.location.href).toContain('login')
   // 🐨 assert that window.location.href contains 'login'
   //
   // 🐨 fill out the form
   // 💰 generate.loginForm()
+  const username = 'hoilzz';
+  const password = 'hzz';
+  const usernameElement = utils.getByText(/username/i)
+  const passwordElement = utils.getByText(/password/i)
+
+
   // 💰 get the username and password fields and set their values
   //
   // Now we need to prepare our axios mock to handle the form submission properly:
